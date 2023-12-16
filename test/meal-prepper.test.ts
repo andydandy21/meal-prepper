@@ -3,7 +3,7 @@
 // import * as MealPrepper from '../lib/meal-prepper-stack';
 
 // example test. To run these tests, uncomment this file along with the
-// example resource in lib/meal-prepper-stack.ts
+// example resource in lib/DataStack.ts
 test('SQS Queue Created', () => {
 //   const app = new cdk.App();
 //     // WHEN
