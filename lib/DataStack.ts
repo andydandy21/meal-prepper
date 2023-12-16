@@ -1,5 +1,4 @@
-import * as cdk from "aws-cdk-lib";
-import { RemovalPolicy } from "aws-cdk-lib";
+import { RemovalPolicy, Stack, StackProps } from "aws-cdk-lib";
 import { Construct } from "constructs";
 import {
   AttributeType,
@@ -8,10 +7,10 @@ import {
   Table,
 } from "aws-cdk-lib/aws-dynamodb";
 
-export class DataStack extends cdk.Stack {
+export class DataStack extends Stack {
   public readonly mealPrepperTable: ITable;
 
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
     this.mealPrepperTable = new Table(this, "RecipeTable", {
