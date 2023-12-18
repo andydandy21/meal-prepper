@@ -12,7 +12,7 @@ export async function postIngredient(
   const randomId = v4();
   const pk = "#IngredientList#";
   const item: Ingredient = JSON.parse(<string>event.body);
-  item.sk = randomId;
+  item.sk = `ingredient#${randomId}`;
   item.pk = pk;
   validateIngredientEntry(item);
 

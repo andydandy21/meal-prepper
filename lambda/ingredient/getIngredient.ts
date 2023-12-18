@@ -12,12 +12,13 @@ export async function getIngredient(
 ): Promise<APIGatewayProxyResult> {
   if (event.pathParameters && "id" in event.pathParameters) {
     const id = <string>event.pathParameters["id"];
+    const sk = `ingredient#${id}`;
     const getItemResponse = await ddbClient.send(
       new GetItemCommand({
         TableName: process.env.TABLE_NAME,
         Key: {
           pk: { S: "#IngredientList#" },
-          sk: { S: id },
+          sk: { S: sk },
         },
       }),
     );

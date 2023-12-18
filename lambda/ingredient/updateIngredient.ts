@@ -15,7 +15,7 @@ export async function updateIngredient(
         TableName: process.env.TABLE_NAME,
         Key: {
           pk: { S: "#IngredientList#" },
-          sk: { S: ingredientId },
+          sk: { S: `ingredient#${ingredientId}` },
         },
         ReturnValues: "ALL_NEW",
         ...expression,
