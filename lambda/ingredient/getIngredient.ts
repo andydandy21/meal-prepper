@@ -52,7 +52,7 @@ export async function getIngredient(
       unmarshall(item),
     );
     return {
-      statusCode: 201,
+      statusCode: 200,
       body: JSON.stringify(unmarshalledItems),
     };
   }

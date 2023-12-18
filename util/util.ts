@@ -1,8 +1,8 @@
-export function GenerateUpdateExpression(obj) {
+export function generateUpdateExpression(obj: any) {
   let exp = {
-    UpdateExpression: "set",
-    ExpressionAttributeNames: {},
-    ExpressionAttributeValues: {},
+    UpdateExpression: "SET",
+    ExpressionAttributeNames: {} as any,
+    ExpressionAttributeValues: {} as any,
   };
   for (const [key, value] of Object.entries(obj)) {
     exp.UpdateExpression += ` #${key} = :${key},`;
