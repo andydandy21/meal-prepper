@@ -7,20 +7,28 @@ export async function deleteIngredient(
 ): Promise<APIGatewayProxyResult> {
   if (event.pathParameters && "id" in event.pathParameters) {
     const ingredientId = <string>event.pathParameters["id"];
-    await ddbClient.send(
+    const deleteResponse = await ddbClient.send(
       new DeleteItemCommand({
         TableName: process.env.TABLE_NAME,
         Key: {
           pk: { S: "#IngredientList#" },
           sk: { S: `ingredient#${ingredientId}` },
         },
+        ReturnValues: "ALL_OLD",
       }),
     );
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify(`Deleted ingredient with id ${ingredientId}`),
-    };
+    if (deleteResponse.Attributes) {
+      return {
+        statusCode: 200,
+        body: JSON.stringify(`Deleted ingredient with id ${ingredientId}`),
+      };
+    } else {
+      return {
+        statusCode: 400,
+        body: JSON.stringify(`No ingredient found for id ${ingredientId}`),
+      };
+    }
   }
   return {
     statusCode: 400,

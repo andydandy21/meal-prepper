@@ -34,6 +34,7 @@ export class LambdaStack extends Stack {
           "dynamodb:GetItem",
           "dynamodb:DeleteItem",
           "dynamodb:UpdateItem",
+          "dynamodb:PutItem",
         ],
       }),
     );

@@ -4,6 +4,7 @@ import * as cdk from "aws-cdk-lib";
 import { DataStack } from "../lib/DataStack";
 import { InitDataResourceStack } from "../lib/InitDataResourceStack";
 import { LambdaStack } from "../lib/LambdaStack";
+import ApiStack from "../lib/ApiStack";
 
 const app = new cdk.App();
 const dataStack = new DataStack(app, "MPDataStack");
@@ -12,4 +13,7 @@ new InitDataResourceStack(app, "MPResourceStack", {
 });
 const lambdaStack = new LambdaStack(app, "MPLambdaStack", {
   mealPrepperTable: dataStack.mealPrepperTable,
+});
+new ApiStack(app, "MPApiStack", {
+  ingredientLambda: lambdaStack.ingredientLambda,
 });

@@ -1,3 +1,5 @@
+import { marshall } from "@aws-sdk/util-dynamodb";
+
 export function generateUpdateExpression(obj: any) {
   let exp = {
     UpdateExpression: "SET",
@@ -7,7 +9,7 @@ export function generateUpdateExpression(obj: any) {
   for (const [key, value] of Object.entries(obj)) {
     exp.UpdateExpression += ` #${key} = :${key},`;
     exp.ExpressionAttributeNames[`#${key}`] = key;
-    exp.ExpressionAttributeValues[`:${key}`] = value;
+    exp.ExpressionAttributeValues[`:${key}`] = marshall(value);
   }
   exp.UpdateExpression = exp.UpdateExpression.slice(0, -1);
   return exp;
