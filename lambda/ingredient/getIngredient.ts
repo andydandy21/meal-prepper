@@ -29,7 +29,7 @@ export async function getIngredient(
       };
     } else {
       return {
-        statusCode: 400,
+        statusCode: 404,
         body: JSON.stringify(`Ingredient with id ${id} not found`),
       };
     }

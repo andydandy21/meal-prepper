@@ -13,6 +13,7 @@ import { template } from "../../template";
 import ReactDOMServer from "react-dom/server";
 import React from "react";
 import App from "../../src/ingredient/App";
+import { generateHTML } from "../../util/util";
 
 const ddbClient = new DynamoDBClient();
 
@@ -52,27 +53,9 @@ export async function handler(
   //   body: JSON.stringify("unknown error"),
   // };
 
-  const html = template
-    .replace(
-      "<!--app-html-->",
-      ReactDOMServer.renderToString(
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>,
-      ),
-    )
-    .replace(
-      "<!--app-script-->",
-      `<script
-        type="module"
-        crossorigin
-        src="https://${process.env.BUCKET_URL}/ingredient/index.js"
-      ></script>`,
-    );
-
   return {
     statusCode: 200,
-    body: html,
+    body: generateHTML(<App />, "/ingredient/index.js"),
     headers: {
       "Content-Type": "text/html",
     },
