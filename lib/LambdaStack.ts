@@ -6,9 +6,11 @@ import { Runtime } from "aws-cdk-lib/aws-lambda";
 import { join } from "path";
 import { ITable } from "aws-cdk-lib/aws-dynamodb";
 import { Effect, PolicyStatement } from "aws-cdk-lib/aws-iam";
+import { IBucket } from "aws-cdk-lib/aws-s3";
 
 interface LambdaStackProps extends StackProps {
   mealPrepperTable: ITable;
+  frontendBucket: IBucket;
 }
 
 export class LambdaStack extends Stack {
@@ -20,9 +22,10 @@ export class LambdaStack extends Stack {
     const ingredientLambda = new NodejsFunction(this, "MPIngredientLambda", {
       runtime: Runtime.NODEJS_18_X,
       handler: "handler",
-      entry: join(__dirname, "..", "lambda", "ingredient", "handler.ts"),
+      entry: join(__dirname, "..", "lambda", "ingredient", "handler.tsx"),
       environment: {
         TABLE_NAME: props.mealPrepperTable.tableName,
+        BUCKET_URL: props.frontendBucket.bucketDomainName,
       },
     });
     ingredientLambda.addToRolePolicy(

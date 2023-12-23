@@ -1,5 +1,6 @@
 *.js
 !jest.config.js
+!vite.config.mjs
 *.d.ts
 node_modules
 
